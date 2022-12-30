@@ -9,8 +9,7 @@ EngineMakerにある乾燥機の使用状況を監視する装置
 ## Development
 開発するために適当なスマートプラグと[tuya.com](https://tuya.com) のアカウントが必要です。
 
-スマートプラグは↓のを買いました。
-https://amzn.asia/d/0xS53w4
+スマートプラグは[これ](https://amzn.asia/d/0xS53w4)を買いました。
 
 ### Tuya APIの認証情報
 TuyaのAPIを呼ぶためにClient IDとSecretが必要です。
