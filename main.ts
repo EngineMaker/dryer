@@ -4,7 +4,7 @@ import { callTuyaAPI } from './tuya-api.ts'
 
 serve(async req => {
   const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = await load()
-  console.log(req.method)
+  console.log({ TUYA_CLIENT_ID })
   if (req.method === 'GET') {
     return new Response('BAD REQEUST', { status: 400 })
   }
