@@ -5,6 +5,7 @@ import { callTuyaAPI } from './tuya-api.ts'
 serve(async req => {
   const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } =
     (await load()) || Deno.env.toObject().env
+  console.log({ load: await load(), env: Deno.env.toObject().env })
   if (req.method === 'GET') {
     return new Response('BAD REQEUST', { status: 400 })
   }
