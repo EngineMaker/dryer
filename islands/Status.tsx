@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from 'preact/hooks'
-import { Button } from '../components/Button.tsx'
-import Switch from './Switch.tsx'
+import { JSX } from 'preact'
+import { useState, useEffect } from 'preact/hooks'
+import { Button } from '~/components/Button.tsx'
+import Switch from '~/islands/Switch.tsx'
 
 interface Status {
   power: number
@@ -8,7 +9,13 @@ interface Status {
   current: number
 }
 
-export default function Status(props) {
+interface Props {
+  deviceId: string
+}
+
+export default function Status({
+  deviceId,
+}: JSX.HTMLAttributes<HTMLButtonElement> & Props) {
   const [status, setStatus] = useState<Status>({
     power: 0,
     voltage: 0,
@@ -16,7 +23,7 @@ export default function Status(props) {
   })
 
   const reload = () => {
-    fetch('/api/v1.0/72363820c4dd5703cd72/status')
+    fetch(`/api/v1.0/${deviceId}/status`)
       .then((a) => a.json())
       .then((a) =>
         a.result
@@ -35,14 +42,18 @@ export default function Status(props) {
   return (
     <>
       <div class="flex gap-1">
-        <div>power: {status.power}W</div>
+        <div>power: {status.power / 10}W</div>
         <div>current: {status.current}mA</div>
-        <div>voltage: {status.voltage}V</div>
+        <div>voltage: {status.voltage / 10}V</div>
       </div>
 
       <div class="mt-4">
-        <Switch power="ON">ONにする</Switch>
-        <Switch power="OFF">OFFにする</Switch>
+        <Switch power="ON" deviceId={deviceId}>
+          ONにする
+        </Switch>
+        <Switch power="OFF" deviceId={deviceId}>
+          OFFにする
+        </Switch>
         <Button onClick={reload}>リロード</Button>
       </div>
     </>

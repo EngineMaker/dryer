@@ -4,14 +4,16 @@ import { Button } from '~/components/Button.tsx'
 
 interface Props {
   power: 'ON' | 'OFF'
+  deviceId: string
 }
 
 export default function Switch({
   children,
   power,
+  deviceId,
 }: JSX.HTMLAttributes<HTMLButtonElement> & Props) {
   const turnOn = useCallback(() => {
-    fetch('/api/v1.0/72363820c4dd5703cd72/command', {
+    fetch(`/api/v1.0/${deviceId}/command`, {
       method: 'POST',
       body: JSON.stringify({
         code: 'switch_1',
