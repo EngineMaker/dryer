@@ -6,7 +6,6 @@ serve(async req => {
   const localEnv = await load()
   const serverEnv = Deno.env.toObject()
   const env = Object.keys(localEnv).length === 0 ? serverEnv : localEnv
-  console.log({ localEnv, serverEnv, env })
 
   const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = env
 
