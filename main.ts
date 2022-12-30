@@ -1,42 +1,29 @@
 import { loadSync } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
+import { serve } from 'https://deno.land/std@0.170.0/http/server.ts'
+import { callTuyaAPI } from './tuya-api.ts'
 
-import { postCommand } from './api/commands.ts'
-import { getToken } from './api/token.ts'
+const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = loadSync()
 
-interface CallTuyaAPIProps {
-  clientId: string
-  clientSecret: string
-  deviceId: string
-  commands: Command[]
-}
+serve(async req => {
+  console.log(req.method)
+  if (req.method === 'GET') {
+    return new Response('BAD REQEUST', { status: 400 })
+  }
 
-interface Command {
-  code: string
-  value: unknown
-}
-
-type CallTuyaAPI = (props: CallTuyaAPIProps) => Promise<any>
-
-const callTuyaAPI: CallTuyaAPI = async ({
-  clientId,
-  clientSecret,
-  deviceId,
-  commands,
-}) => {
-  const accessToken = await getToken(clientId, clientSecret)
-
-  return postCommand(clientId, clientSecret, deviceId, commands, accessToken)
-}
-
-// Learn more at https://deno.land/manual/examples/module_metadata#concepts
-
-if (import.meta.main) {
-  const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = loadSync()
-
-  callTuyaAPI({
+  const r = await req.json()
+  const response = await callTuyaAPI({
     clientId: TUYA_CLIENT_ID,
     clientSecret: TUYA_CLIENT_SECRET,
-    deviceId: '72363820c4dd5703cd72',
-    commands: [{ code: 'switch_1', value: true }],
-  }).then(r => console.log(r))
-}
+    deviceId: r.deviceId,
+    commands: [{ code: r.code, value: r.value }],
+  })
+    .then(
+      result =>
+        new Response(JSON.stringify(result), {
+          headers: { 'Content-Type': 'application/json' },
+        })
+    )
+    .catch(e => new Response(e.message, { status: 500 }))
+
+  return response
+})
