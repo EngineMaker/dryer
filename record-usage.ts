@@ -1,4 +1,4 @@
-import { loadSync } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
+import { load } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
 import { Client } from 'https://deno.land/x/postgres@v0.17.0/mod.ts'
 
 interface Usage extends Record<string, unknown> {
@@ -10,7 +10,7 @@ interface Usage extends Record<string, unknown> {
 }
 
 export const recordUsage = async (usage: Usage) => {
-  loadSync({ export: true })
+  await load({ export: true })
 
   const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_CERT_URL } =
     Deno.env.toObject()

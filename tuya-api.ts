@@ -1,4 +1,4 @@
-import { loadSync } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
+import { load } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
 
 import { postCommand } from './api/commands.ts'
 import { getStatus } from './api/status.ts'
@@ -46,7 +46,9 @@ export const callTuyaAPI: CallTuyaAPI = async ({
 // Learn more at https://deno.land/manual/examples/module_metadata#concepts
 
 if (import.meta.main) {
-  const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = loadSync()
+  await load({ export: true })
+
+  const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = Deno.env.toObject()
 
   callTuyaAPI({
     clientId: TUYA_CLIENT_ID,

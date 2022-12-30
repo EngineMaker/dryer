@@ -4,11 +4,8 @@ import { recordUsage } from './record-usage.ts'
 import { callTuyaAPI, CallTuyaAPIProps } from './tuya-api.ts'
 
 serve(async req => {
-  const localEnv = await load()
-  const serverEnv = Deno.env.toObject()
-  const env = Object.keys(localEnv).length === 0 ? serverEnv : localEnv
-
-  const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = env
+  await load({ export: true })
+  const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = Deno.env.toObject()
 
   const paramsBase = {
     clientId: TUYA_CLIENT_ID,
