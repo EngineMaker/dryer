@@ -3,7 +3,8 @@ import { serve } from 'https://deno.land/std@0.170.0/http/server.ts'
 import { callTuyaAPI } from './tuya-api.ts'
 
 serve(async req => {
-  const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = await load()
+  const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } =
+    (await load()) || Deno.env.toObject()
   console.log({ TUYA_CLIENT_ID })
   if (req.method === 'GET') {
     return new Response('BAD REQEUST', { status: 400 })
