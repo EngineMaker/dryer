@@ -1,6 +1,6 @@
 import { load } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
 import { serve } from 'https://deno.land/std@0.170.0/http/server.ts'
-import { callTuyaAPI } from './tuya-api.ts'
+import { callTuyaAPI, CallTuyaAPIProps } from './tuya-api.ts'
 
 serve(async req => {
   const localEnv = await load()
@@ -9,17 +9,27 @@ serve(async req => {
 
   const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = env
 
-  if (req.method === 'GET') {
-    return new Response('BAD REQEUST', { status: 400 })
-  }
-
-  const r = await req.json()
-  const response = await callTuyaAPI({
+  const paramsBase = {
     clientId: TUYA_CLIENT_ID,
     clientSecret: TUYA_CLIENT_SECRET,
-    deviceId: r.deviceId,
-    commands: [{ code: r.code, value: r.value }],
-  })
+  }
+
+  const body = await req.json().catch(() => {})
+  const params: CallTuyaAPIProps =
+    req.method === 'GET'
+      ? {
+          ...paramsBase,
+          deviceId: req.url.split('/').pop() || '',
+          api: 'status',
+        }
+      : {
+          ...paramsBase,
+          deviceId: body.deviceId,
+          api: 'command',
+          commands: [{ code: body.code, value: body.value }],
+        }
+
+  const response = await callTuyaAPI(params)
     .then(
       result =>
         new Response(JSON.stringify(result), {
