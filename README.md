@@ -4,7 +4,25 @@
 EngineMakerにある乾燥機の使用状況を監視する装置
 
 ## Usage
-まだ使えません…
+
+URLはもうちょっといい感じにしたい
+
+## 乾燥機の使用状況を取得  
+GET `https://em-dryer.deno.dev/{deviceId}`
+
+## 乾燥機の電源ON/OFF
+たぶん使わないですが、、せっかくなので作りました
+
+POST `https://em-dryer.deno.dev/`
+
+リクエストデータ
+```
+{
+  "deviceID": "{deviceId}",
+  "code": "switch_1",
+  "value": {true or false}
+}
+```
 
 ## Development
 開発するために適当なスマートプラグと[tuya.com](https://tuya.com) のアカウントが必要です。
