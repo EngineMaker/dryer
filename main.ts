@@ -1,10 +1,9 @@
-import { loadSync } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
+import { load } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
 import { serve } from 'https://deno.land/std@0.170.0/http/server.ts'
 import { callTuyaAPI } from './tuya-api.ts'
 
-const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = loadSync()
-
 serve(async req => {
+  const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = await load()
   console.log(req.method)
   if (req.method === 'GET') {
     return new Response('BAD REQEUST', { status: 400 })
