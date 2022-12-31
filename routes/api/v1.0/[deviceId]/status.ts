@@ -1,6 +1,6 @@
 import { Handlers } from '$fresh/server.ts'
 import { load } from 'std/dotenv/mod.ts'
-import { recordUsage } from '~/record-usage.ts'
+import { insertUsage } from "~/db/insert-usage.ts"
 import { callTuyaAPI, CallTuyaAPIProps } from '~/tuya-api.ts'
 import { StatusResult } from '~/api/status.ts'
 
@@ -22,11 +22,11 @@ export const handler: Handlers = {
 
     const result = (await callTuyaAPI(params)) as StatusResult
     if (result.success) {
-      recordUsage({
+      insertUsage({
         deviceId,
-        current: result.result.find((r) => r.code === 'cur_current').value,
-        power: result.result.find((r) => r.code === 'cur_power').value,
-        voltage: result.result.find((r) => r.code === 'cur_voltage').value,
+        current: result.result.find((r) => r.code === "cur_current").value,
+        power: result.result.find((r) => r.code === "cur_power").value,
+        voltage: result.result.find((r) => r.code === "cur_voltage").value,
         time: new Date(result.t),
       })
     }
