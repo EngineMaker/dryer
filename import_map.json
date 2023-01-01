@@ -9,6 +9,9 @@
     "twind": "https://esm.sh/twind@0.16.17",
     "twind/": "https://esm.sh/twind@0.16.17/",
     "std/": "https://deno.land/std@0.170.0/",
+    "date-fns/": "https://esm.sh/date-fns@2.29.3/",
+    "date-fns-tz/": "https://esm.sh/date-fns-tz@1.3.7/",
+    "d3nodata/": "https://deno.land/x/d3nodata/",
     "~/": "./"
   }
 }

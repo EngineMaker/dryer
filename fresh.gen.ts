@@ -4,22 +4,26 @@
 
 import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/api/v1.0/[deviceId]/command.ts";
-import * as $1 from "./routes/api/v1.0/[deviceId]/status.ts";
-import * as $2 from "./routes/index.tsx";
-import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/Status.tsx";
-import * as $$2 from "./islands/Switch.tsx";
+import * as $1 from "./routes/api/v1.0/[deviceId]/history.ts";
+import * as $2 from "./routes/api/v1.0/[deviceId]/status.ts";
+import * as $3 from "./routes/index.tsx";
+import * as $$0 from "./islands/Chart.tsx";
+import * as $$1 from "./islands/Counter.tsx";
+import * as $$2 from "./islands/Status.tsx";
+import * as $$3 from "./islands/Switch.tsx";
 
 const manifest = {
   routes: {
     "./routes/api/v1.0/[deviceId]/command.ts": $0,
-    "./routes/api/v1.0/[deviceId]/status.ts": $1,
-    "./routes/index.tsx": $2,
+    "./routes/api/v1.0/[deviceId]/history.ts": $1,
+    "./routes/api/v1.0/[deviceId]/status.ts": $2,
+    "./routes/index.tsx": $3,
   },
   islands: {
-    "./islands/Counter.tsx": $$0,
-    "./islands/Status.tsx": $$1,
-    "./islands/Switch.tsx": $$2,
+    "./islands/Chart.tsx": $$0,
+    "./islands/Counter.tsx": $$1,
+    "./islands/Status.tsx": $$2,
+    "./islands/Switch.tsx": $$3,
   },
   baseUrl: import.meta.url,
   config,

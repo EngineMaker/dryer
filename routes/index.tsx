@@ -1,5 +1,6 @@
 import { Head } from '$fresh/runtime.ts'
 import Status from '~/islands/Status.tsx'
+import Chart from "../islands/Chart.tsx"
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
             />
 
             <Status deviceId="72363820c4dd5703cd72" />
+            <Chart deviceId="72363820c4dd5703cd72"></Chart>
           </div>
 
           <div>
@@ -29,6 +31,7 @@ const Home = () => {
               alt="the fresh logo: a sliced lemon dripping with juice"
             />
             <Status deviceId="72363820c4dd5707cd6a" />
+            <Chart deviceId="72363820c4dd5707cd6a"></Chart>
           </div>
         </div>
       </div>
