@@ -32,7 +32,11 @@ const Chart = (props: Props) => {
             format(d.time, "HH:mm", { timeZone: "Asia/Tokyo" })
           ),
           datasets: [
-            { label: "Power", data: data.map((d) => d.power), fill: true },
+            {
+              label: "Power(W)",
+              data: data.map((d) => d.power / 10),
+              fill: true,
+            },
           ],
         },
       })

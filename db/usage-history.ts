@@ -1,6 +1,5 @@
 import { newClient } from "~/db/client.ts"
 import sub from "date-fns/sub"
-import format from "date-fns-tz/format"
 
 interface UsageHistoryOptions {
   id?: number
@@ -31,21 +30,4 @@ export const usageHistory = async (
   )
 
   return rows.map((r) => ({ power: Number(r.power), time: r.time }))
-}
-
-if (import.meta.main) {
-  const now = new Date()
-  const rows = await usageHistory("72363820c4dd5707cd6a", {
-    from: sub(now, { days: 1 }),
-    to: now,
-    limit: 1440,
-  })
-  console.log(
-    rows.map((r) => ({
-      ...r,
-      time: format(r.time, "yyyy/MM/dd HH:mm:ss XXX", {
-        timeZone: "Asia/Tokyo",
-      }),
-    }))
-  )
 }
