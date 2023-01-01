@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Fresh App</title>
+        <title>EngineMaker新宿の乾燥機を監視する</title>
       </Head>
       <div class="p-4 mx-auto max-w-screen-md">
         <h1 class="text-xl md:text-3xl mt-2 mb-6">
@@ -36,7 +36,7 @@ const Home = () => {
         </div>
       </div>
     </>
-  );
+  )
 };
 
 export default Home;
