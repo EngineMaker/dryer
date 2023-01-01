@@ -1,7 +1,7 @@
-import { Handlers } from '$fresh/server.ts'
-import { load } from 'std/dotenv/mod.ts'
-import { callTuyaAPI, CallTuyaAPIProps } from '~/tuya-api.ts'
-import { StatusResult } from '~/api/status.ts'
+import { Handlers } from "$fresh/server.ts"
+import { load } from "std/dotenv/mod.ts"
+import { callTuyaAPI, CallTuyaAPIProps } from "~/tuya-api/index.ts"
+import { StatusResult } from "~/tuya-api/status.ts"
 
 await load({ export: true })
 const { TUYA_CLIENT_ID, TUYA_CLIENT_SECRET } = Deno.env.toObject()
@@ -18,14 +18,14 @@ export const handler: Handlers = {
     const params: CallTuyaAPIProps = {
       ...paramsBase,
       deviceId,
-      api: 'command',
+      api: "command",
       commands: [{ code: body.code, value: body.value }],
     }
 
     const result = (await callTuyaAPI(params)) as StatusResult
 
     return new Response(JSON.stringify(result), {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     })
   },
 }

@@ -1,29 +1,29 @@
-import ChartJS from "https://esm.sh/chart.js@4.1.1/auto"
-import format from "date-fns-tz/format"
-import { useCallback, useEffect, useRef, useState } from "preact/hooks"
+import ChartJS from "chart.js/auto";
+import format from "date-fns-tz/format";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 
 interface Props {
-  deviceId: string
+  deviceId: string;
 }
 
 const Chart = (props: Props) => {
-  const [data, setData] = useState([])
-  const el = useRef<HTMLCanvasElement>(null)
+  const [data, setData] = useState([]);
+  const el = useRef<HTMLCanvasElement>(null);
 
   const loadHistory = useCallback(async () => {
     const histories = await fetch(`/api/v1.0/${props.deviceId}/history`).then(
-      (r) => r.json()
-    )
+      (r) => r.json(),
+    );
 
-    setData(histories.reverse().map((h) => ({ ...h, time: new Date(h.time) })))
-  }, [])
-
-  useEffect(() => {
-    loadHistory()
-  }, [])
+    setData(histories.reverse().map((h) => ({ ...h, time: new Date(h.time) })));
+  }, []);
 
   useEffect(() => {
-    console.log(data)
+    loadHistory();
+  }, []);
+
+  useEffect(() => {
+    console.log(data);
     if (el.current && data.length > 0) {
       new ChartJS(el.current, {
         type: "line",
@@ -39,15 +39,15 @@ const Chart = (props: Props) => {
             },
           ],
         },
-      })
+      });
     }
-  }, [data])
+  }, [data]);
 
   return (
     <div>
       <canvas ref={el} />
     </div>
-  )
-}
+  );
+};
 
-export default Chart
+export default Chart;

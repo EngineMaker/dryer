@@ -1,16 +1,16 @@
-import { JSX } from 'preact'
-import { useState, useEffect } from 'preact/hooks'
-import { Button } from '~/components/Button.tsx'
-import Switch from '~/islands/Switch.tsx'
+import { JSX } from "preact";
+import { useEffect, useState } from "preact/hooks";
+import { Button } from "~/components/Button.tsx";
+import Switch from "~/islands/Switch.tsx";
 
 interface Status {
-  power: number
-  voltage: number
-  current: number
+  power: number;
+  voltage: number;
+  current: number;
 }
 
 interface Props {
-  deviceId: string
+  deviceId: string;
 }
 
 export default function Status({
@@ -20,7 +20,7 @@ export default function Status({
     power: 0,
     voltage: 0,
     current: 0,
-  })
+  });
 
   const reload = () => {
     fetch(`/api/v1.0/${deviceId}/status`)
@@ -31,13 +31,13 @@ export default function Status({
           .reduce((accm, r) => ({ ...accm, [r.code.slice(4)]: r.value }), {})
       )
       .then((status) => {
-        setStatus(status)
-      })
-  }
+        setStatus(status);
+      });
+  };
 
   useEffect(() => {
-    reload()
-  }, [])
+    reload();
+  }, []);
 
   return (
     <>
@@ -57,5 +57,5 @@ export default function Status({
         <Button onClick={reload}>リロード</Button>
       </div>
     </>
-  )
+  );
 }

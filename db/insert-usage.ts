@@ -1,21 +1,21 @@
-import { newClient } from "~/db/client.ts"
+import { newClient } from "~/db/client.ts";
 
 interface Usage extends Record<string, unknown> {
-  deviceId: string
-  current: number
-  power: number
-  voltage: number
-  time: Date
+  deviceId: string;
+  current: number;
+  power: number;
+  voltage: number;
+  time: Date;
 }
 
 export const insertUsage = async (usage: Usage) => {
-  const db = await newClient()
+  const db = await newClient();
   await db.queryArray(
     `INSERT INTO power_usages (device_id, current, power, voltage, time)
      VALUES ($deviceId, $current, $power, $voltage, $time)`,
-    usage
-  )
-}
+    usage,
+  );
+};
 
 if (import.meta.main) {
   const usage = {
@@ -24,7 +24,7 @@ if (import.meta.main) {
     power: 888,
     voltage: 1024,
     time: new Date(),
-  }
+  };
 
-  insertUsage(usage)
+  insertUsage(usage);
 }

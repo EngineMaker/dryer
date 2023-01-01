@@ -1,8 +1,8 @@
-import { load } from 'https://deno.land/std@0.170.0/dotenv/mod.ts'
+import { load } from "std/dotenv/mod.ts"
 
-import { postCommand } from './api/commands.ts'
-import { getStatus } from './api/status.ts'
-import { getToken } from './api/token.ts'
+import { postCommand } from "~/tuya-api/commands.ts"
+import { getStatus } from "~/tuya-api/status.ts"
+import { getToken } from "~/tuya-api/token.ts"
 
 export interface CallTuyaAPIProps {
   clientId: string
@@ -17,7 +17,7 @@ interface Command {
   value: unknown
 }
 
-type API = 'command' | 'status'
+type API = "command" | "status"
 
 type CallTuyaAPI = (props: CallTuyaAPIProps) => Promise<unknown>
 
@@ -30,9 +30,9 @@ export const callTuyaAPI: CallTuyaAPI = async ({
 }) => {
   const accessToken = await getToken(clientId, clientSecret)
 
-  if (api === 'status') {
+  if (api === "status") {
     return getStatus(clientId, clientSecret, deviceId, accessToken)
-  } else if (api === 'command') {
+  } else if (api === "command") {
     return postCommand(
       clientId,
       clientSecret,
@@ -53,8 +53,8 @@ if (import.meta.main) {
   callTuyaAPI({
     clientId: TUYA_CLIENT_ID,
     clientSecret: TUYA_CLIENT_SECRET,
-    deviceId: '72363820c4dd5703cd72',
-    api: 'command',
-    commands: [{ code: 'switch_1', value: false }],
-  }).then(r => console.log(r))
+    deviceId: "72363820c4dd5703cd72",
+    api: "command",
+    commands: [{ code: "switch_1", value: false }],
+  }).then((r) => console.log(r))
 }

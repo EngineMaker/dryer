@@ -1,6 +1,6 @@
-import { Head } from '$fresh/runtime.ts'
-import Status from '~/islands/Status.tsx'
-import Chart from "../islands/Chart.tsx"
+import { Head } from "$fresh/runtime.ts";
+import Status from "~/islands/Status.tsx";
+import Chart from "~/islands/Chart.tsx";
 
 const Home = () => {
   return (
@@ -36,7 +36,7 @@ const Home = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -1,11 +1,11 @@
-import { load } from "https://deno.land/std@0.170.0/dotenv/mod.ts"
-import { Client } from "https://deno.land/x/postgres@v0.17.0/mod.ts"
+import { load } from "std/dotenv/mod.ts";
+import { Client } from "postgres/mod.ts";
 
 export const newClient = async () => {
-  await load({ export: true })
+  await load({ export: true });
 
   const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_CERT_URL } =
-    Deno.env.toObject()
+    Deno.env.toObject();
 
   const client = new Client({
     database: DB_NAME,
@@ -16,8 +16,8 @@ export const newClient = async () => {
     tls: {
       caCertificates: [await fetch(DB_CERT_URL).then((r) => r.text())],
     },
-  })
+  });
 
-  await client.connect()
-  return client
-}
+  await client.connect();
+  return client;
+};

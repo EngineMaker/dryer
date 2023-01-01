@@ -1,8 +1,8 @@
-import { buildHeaders } from '../headers.ts'
+import { buildHeaders } from "~/lib/headers.ts";
 
 interface Command {
-  code: string
-  value: unknown
+  code: string;
+  value: unknown;
 }
 
 export const postCommand = async (
@@ -10,28 +10,28 @@ export const postCommand = async (
   clientSecret: string,
   deviceId: string,
   commands: Command[],
-  accessToken: string
+  accessToken: string,
 ) => {
-  const body = JSON.stringify({ commands })
+  const body = JSON.stringify({ commands });
   const headers = await buildHeaders({
     id: clientId,
     secret: clientSecret,
-    method: 'POST',
+    method: "POST",
     url: `/v1.0/iot-03/devices/${deviceId}/commands`,
     accessToken,
     body,
-  })
+  });
 
   return fetch(
     `https://openapi-ueaz.tuyaus.com/v1.0/iot-03/devices/${deviceId}/commands`,
     {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         access_token: accessToken,
         ...headers,
       },
       body,
-    }
-  ).then(r => r.json())
-}
+    },
+  ).then((r) => r.json());
+};

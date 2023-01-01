@@ -1,5 +1,6 @@
 {
   "imports": {
+    "~/": "./",
     "$fresh/": "https://deno.land/x/fresh@1.1.2/",
     "preact": "https://esm.sh/preact@10.11.0",
     "preact/": "https://esm.sh/preact@10.11.0/",
@@ -11,7 +12,8 @@
     "std/": "https://deno.land/std@0.170.0/",
     "date-fns/": "https://esm.sh/date-fns@2.29.3/",
     "date-fns-tz/": "https://esm.sh/date-fns-tz@1.3.7/",
-    "d3nodata/": "https://deno.land/x/d3nodata/",
-    "~/": "./"
+    "nanoid/": "https://deno.land/x/nanoid@v3.0.0/",
+    "postgres/": "https://deno.land/x/postgres@v0.17.0/",
+    "chart.js/": "https://esm.sh/chart.js@4.1.1/"
   }
 }
