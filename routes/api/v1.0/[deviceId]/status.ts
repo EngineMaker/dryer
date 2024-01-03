@@ -13,6 +13,7 @@ const paramsBase = {
 
 export const handler: Handlers = {
   GET: async (_req, _ctx) => {
+    console.log(JSON.stringify({ _req, _ctx }))
     const deviceId = _ctx.params.deviceId
     const params: CallTuyaAPIProps = {
       ...paramsBase,
